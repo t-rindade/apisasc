@@ -19,7 +19,7 @@ public class UnidadeModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_unidade", nullable = false)
+    @Column(name = "id", nullable = false)
     private UUID id;
 
     private String nome;

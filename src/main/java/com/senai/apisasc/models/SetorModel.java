@@ -19,7 +19,7 @@ public class SetorModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_setor", nullable = false)
+    @Column(name = "id", nullable = false)
     private UUID id;
 
     private String titulo;

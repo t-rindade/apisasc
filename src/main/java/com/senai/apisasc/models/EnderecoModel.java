@@ -18,7 +18,7 @@ public class EnderecoModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_endereco", nullable = false)
+    @Column(name = "id", nullable = false)
     private UUID id;
 
     private String cep;
