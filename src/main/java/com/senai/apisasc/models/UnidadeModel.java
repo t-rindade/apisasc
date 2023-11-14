@@ -23,4 +23,8 @@ public class UnidadeModel implements Serializable {
     private UUID id;
 
     private String nome;
+
+    @ManyToOne
+    @JoinColumn(name = "id_endereco", referencedColumnName = "id")
+    private EnderecoModel endereco;
 }

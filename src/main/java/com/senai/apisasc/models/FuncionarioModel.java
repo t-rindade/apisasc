@@ -25,4 +25,8 @@ public class FuncionarioModel implements Serializable {
     private String email;
     private String senha;
 
+    @ManyToOne
+    @JoinColumn(name = "id_setor", referencedColumnName = "id")
+    private SetorModel setor;
+
 }
