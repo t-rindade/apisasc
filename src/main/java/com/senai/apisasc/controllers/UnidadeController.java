@@ -1,16 +1,16 @@
 package com.senai.apisasc.controllers;
 
 
+import com.senai.apisasc.dtos.UnidadeDto;
 import com.senai.apisasc.models.UnidadeModel;
 import com.senai.apisasc.repositories.EnderecoRepository;
 import com.senai.apisasc.repositories.UnidadeRepository;
+import jakarta.validation.Valid;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,5 +39,56 @@ public class UnidadeController {
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(unidadeBuscada.get());
+    }
+
+    @PostMapping
+    public ResponseEntity<Object> cadastrarUnidade(@RequestBody @Valid UnidadeDto unidadeDto){
+        UnidadeModel unidadeModel = new UnidadeModel();
+        BeanUtils.copyProperties(unidadeDto, unidadeModel);
+
+        var endereco = enderecoRepository.findById(unidadeDto.id_endereco());
+
+        if (endereco.isPresent()) {
+            unidadeModel.setEndereco(endereco.get());
+        } else {
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).body("id_endereco nao encontrado");
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(unidadeRepository.save(unidadeModel));
+    }
+
+    @PutMapping(value = "/{idUnidade}")
+    public ResponseEntity<Object> editarUnidade(@PathVariable(value = "idUnidade") UUID id, @RequestBody @Valid UnidadeDto unidadeDto) {
+        Optional<UnidadeModel> unidadeBuscada = unidadeRepository.findById(id);
+
+        if (unidadeBuscada.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Unidade nao encontrada");
+        }
+
+        UnidadeModel unidadeModel = new UnidadeModel();
+        BeanUtils.copyProperties(unidadeDto, unidadeModel);
+
+        var endereco = enderecoRepository.findById(unidadeDto.id_endereco());
+
+        if (endereco.isPresent()) {
+            unidadeModel.setEndereco(endereco.get());
+        } else {
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).body("id_endereco nao encontrado");
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(unidadeRepository.save(unidadeModel));
+    }
+
+    @DeleteMapping("/{idUnidade}")
+    public ResponseEntity<Object> deleterUnidade(@PathVariable(value = "idUnidade") UUID id) {
+        Optional<UnidadeModel> unidadeBuscada = unidadeRepository.findById(id);
+
+        if (unidadeBuscada.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Unidade nao encontrada");
+        }
+
+        unidadeRepository.delete(unidadeBuscada.get());
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Unidade deletado com sucesso");
     }
 }

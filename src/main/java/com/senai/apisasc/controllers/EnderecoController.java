@@ -37,8 +37,8 @@ public class EnderecoController {
         return ResponseEntity.status(HttpStatus.OK).body(enderecoBuscado.get());
     }
 
-    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<Object> cadastrarEndereco(@ModelAttribute @Valid EnderecoDto enderecoDto) {
+    @PostMapping
+    public ResponseEntity<Object> cadastrarEndereco(@RequestBody @Valid EnderecoDto enderecoDto) {
         if (enderecoRepository.findByCep(enderecoDto.cep()) != null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Esse cep ja esta cadastrado!");
         }
@@ -49,8 +49,8 @@ public class EnderecoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(enderecoRepository.save(endereco));
     }
 
-    @PutMapping(value =  "/{idEndereco}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<Object> editarEndereco(@PathVariable(value = "idEndereco") UUID id, @ModelAttribute @Valid EnderecoDto enderecoDto) {
+    @PutMapping(value =  "/{idEndereco}")
+    public ResponseEntity<Object> editarEndereco(@PathVariable(value = "idEndereco") UUID id, @RequestBody @Valid EnderecoDto enderecoDto) {
         Optional<EnderecoModel> enderecoBuscado = enderecoRepository.findById(id);
 
         if (enderecoBuscado.isEmpty()) {
