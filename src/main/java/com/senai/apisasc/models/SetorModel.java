@@ -26,5 +26,5 @@ public class SetorModel implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "id_unidade", referencedColumnName = "id")
-    private EnderecoModel unidade;
+    private UnidadeModel unidade;
 }

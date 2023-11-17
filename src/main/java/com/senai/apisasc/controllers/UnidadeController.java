@@ -65,18 +65,18 @@ public class UnidadeController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Unidade nao encontrada");
         }
 
-        UnidadeModel unidadeModel = new UnidadeModel();
-        BeanUtils.copyProperties(unidadeDto, unidadeModel);
+        UnidadeModel unidade = unidadeBuscada.get();
+        BeanUtils.copyProperties(unidadeDto, unidade);
 
         var endereco = enderecoRepository.findById(unidadeDto.id_endereco());
 
         if (endereco.isPresent()) {
-            unidadeModel.setEndereco(endereco.get());
+            unidade.setEndereco(endereco.get());
         } else {
             ResponseEntity.status(HttpStatus.BAD_REQUEST).body("id_endereco nao encontrado");
         }
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(unidadeRepository.save(unidadeModel));
+        return ResponseEntity.status(HttpStatus.CREATED).body(unidadeRepository.save(unidade));
     }
 
     @DeleteMapping("/{idUnidade}")
