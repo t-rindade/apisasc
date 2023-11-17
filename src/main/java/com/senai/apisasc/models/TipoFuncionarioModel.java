@@ -11,7 +11,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "tipo_funcionario_model")
+@Table(name = "tb_tipofuncionario")
 public class TipoFuncionarioModel implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
