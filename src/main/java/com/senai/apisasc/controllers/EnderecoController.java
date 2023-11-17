@@ -73,6 +73,6 @@ public class EnderecoController {
 
         enderecoRepository.delete(enderecoBuscado.get());
 
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Usuario deletado com sucesso");
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Endereco deletado com sucesso");
     }
 }

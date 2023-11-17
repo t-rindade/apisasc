@@ -23,4 +23,8 @@ public class SetorModel implements Serializable {
     private UUID id;
 
     private String titulo;
+
+    @ManyToOne
+    @JoinColumn(name = "id_unidade", referencedColumnName = "id")
+    private EnderecoModel unidade;
 }
