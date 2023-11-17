@@ -42,18 +42,18 @@ public class SetorController {
 
     @PostMapping
     public ResponseEntity<Object> cadastrarSetor(@RequestBody @Valid SetorDto setorDto) {
-        SetorModel setorModel = new SetorModel();
-        BeanUtils.copyProperties(setorDto, setorModel);
+        SetorModel setor = new SetorModel();
+        BeanUtils.copyProperties(setorDto, setor);
 
         var unidade = unidadeRepository.findById(setorDto.id_unidade());
 
         if (unidade.isPresent()) {
-            setorModel.setUnidade(unidade.get());
+            setor.setUnidade(unidade.get());
         } else {
             ResponseEntity.status(HttpStatus.BAD_REQUEST).body("id_unidade nao encontrado");
         }
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(setorRepository.save(setorModel));
+        return ResponseEntity.status(HttpStatus.CREATED).body(setorRepository.save(setor));
     }
 
     @PutMapping(value = "/{idSetor}")

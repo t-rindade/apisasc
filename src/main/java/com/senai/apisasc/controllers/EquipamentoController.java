@@ -47,25 +47,25 @@ public class EquipamentoController {
 
     @PostMapping
     public ResponseEntity<Object> cadastrarEquipamento(@RequestBody @Valid EquipamentoDto equipamentoDto) {
-        EquipamentoModel equipamentoModel = new EquipamentoModel();
-        BeanUtils.copyProperties(equipamentoDto, equipamentoModel);
+        EquipamentoModel equipamento = new EquipamentoModel();
+        BeanUtils.copyProperties(equipamentoDto, equipamento);
 
         var setor = setorRepository.findById(equipamentoDto.id_setor());
         var fabricante = fabricanteRepository.findById(equipamentoDto.id_fabricante());
 
         if (setor.isPresent()) {
-            equipamentoModel.setSetor(setor.get());
+            equipamento.setSetor(setor.get());
         } else {
             ResponseEntity.status(HttpStatus.BAD_REQUEST).body("id_setor nao encontrado");
         }
 
         if (fabricante.isPresent()) {
-            equipamentoModel.setFabricante(fabricante.get());
+            equipamento.setFabricante(fabricante.get());
         } else {
             ResponseEntity.status(HttpStatus.BAD_REQUEST).body("id_fabricante nao encontrado");
         }
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(equipamentoRepository.save(equipamentoModel));
+        return ResponseEntity.status(HttpStatus.CREATED).body(equipamentoRepository.save(equipamento));
     }
 
     @PutMapping(value = "/{idEquipamento}")
