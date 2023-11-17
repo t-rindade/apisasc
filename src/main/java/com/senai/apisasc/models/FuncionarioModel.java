@@ -29,4 +29,8 @@ public class FuncionarioModel implements Serializable {
     @JoinColumn(name = "id_setor", referencedColumnName = "id")
     private SetorModel setor;
 
+    @ManyToOne
+    @JoinColumn(name = "id_tipofuncionario", referencedColumnName = "id")
+    private TipoFuncionarioModel tipofuncionario;
+
 }
