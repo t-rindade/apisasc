@@ -6,10 +6,7 @@ import com.senai.apisasc.models.EnderecoModel;
 import com.senai.apisasc.models.FabricanteModel;
 import com.senai.apisasc.repositories.FabricanteRepository;
 import jakarta.validation.Valid;
-<<<<<<< HEAD
 import org.apache.coyote.Response;
-=======
->>>>>>> 22dec181a3a6c93d55881f91e4a262d2a941e019
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,11 +42,7 @@ public class FabricanteController {
     @PostMapping
     public ResponseEntity<Object> cadastrarFabricante(@RequestBody @Valid FabricanteDto fabricanteDto) {
         if (fabricanteRepository.findByCnpj(fabricanteDto.cnpj()) != null) {
-<<<<<<< HEAD
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Esse CNPJ ja esta cadastrada");
-=======
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Esse CNPJ ja esta cadastrado!");
->>>>>>> 22dec181a3a6c93d55881f91e4a262d2a941e019
         }
 
         FabricanteModel fabricante = new FabricanteModel();
@@ -57,7 +50,6 @@ public class FabricanteController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(fabricanteRepository.save(fabricante));
     }
-<<<<<<< HEAD
 
     @PutMapping(value = "/{idFabricante}")
     public ResponseEntity<Object> editarFabricante(@PathVariable(value = "idFabricante") UUID id, @RequestBody @Valid FabricanteDto fabricanteDto) {
@@ -86,6 +78,4 @@ public class FabricanteController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Fabricante deletado com sucesso");
     }
 
-=======
->>>>>>> 22dec181a3a6c93d55881f91e4a262d2a941e019
 }
