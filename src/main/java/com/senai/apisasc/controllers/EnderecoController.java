@@ -16,6 +16,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/endereco", produces = {"application/json"})
 public class EnderecoController {
     @Autowired

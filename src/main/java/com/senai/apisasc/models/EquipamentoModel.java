@@ -25,7 +25,6 @@ public class EquipamentoModel implements Serializable {
 
     private String modelo;
     private BigDecimal valor;
-    private BigDecimal consumo;
     private BigDecimal consumo_nominal;
     private Date data_compra;
 

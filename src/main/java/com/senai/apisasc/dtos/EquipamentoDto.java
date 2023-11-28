@@ -10,7 +10,6 @@ import java.util.UUID;
 public record EquipamentoDto(
         @NotBlank String modelo,
         @NotNull BigDecimal valor,
-        @NotNull BigDecimal consumo,
         @NotNull BigDecimal consumo_nominal,
         @NotNull Date data_compra,
 
